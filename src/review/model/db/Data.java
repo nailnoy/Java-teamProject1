@@ -14,6 +14,8 @@ public class Data {
 	//모든 요청하는 user들이 공유하는 단일 데이터라 가정
 	private static Manager manager = new Manager("omomo", "12345", "이관용", "010-1210-4424");
 	
+	
+	
 	private static Buyer buyer1 = new Buyer("dvcev", 177777, "김의사", "010-111-7777");
 	private static Buyer buyer2 = new Buyer("fefef", 277777, "신예능", "010-222-7777");
 	private static Buyer buyer3 = new Buyer("eecef", 377777, "이레사", "010-333-7777");
