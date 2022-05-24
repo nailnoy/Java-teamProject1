@@ -133,6 +133,13 @@ public class TradeController {
 		service.txtGenerate();
 	}
 	
+	public static void discardOldList() {
+		service.discardOldList();
+	}
+	
+	public static void importBuyer() {
+		service.importBuyer();
+	}
 	
 
 }

@@ -11,11 +11,14 @@ package review.service;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 //step03
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
@@ -124,8 +127,6 @@ public class TradeModel {
 		}
 		throw new NotFoundException("입력된 값에 오류가 있습니다.");
 	}
-	
-	
 
 	/*
 	 * Project 삭제 - 프로젝트 명으로 해당 프로젝트 삭제
@@ -152,29 +153,92 @@ public class TradeModel {
 		String input = sc.next();
 		return input;
 	}
-	
+
 	public void txtGenerate() {
 		BufferedWriter out = null;
 		try {
 			out = new BufferedWriter(new FileWriter("playdata.txt"));
 			int index = 0;
-	
-			for(TradeList trade : tradeList) {
-				out.write("[완료된 거래들 : " + (index+1) + "] " + trade.toString() + "\n");
+
+			for (TradeList trade : tradeList) {
+				out.write("[완료된 거래들 : " + (index + 1) + "] " + trade.toString() + "\n");
 				index++;
 			}
-		} catch (IOException e) { //IOException은 FileNotFoundException의 상위타입, 다형성
+		} catch (IOException e) { // IOException은 FileNotFoundException의 상위타입, 다형성
 			e.printStackTrace();
 		} finally {
 			try {
 				if (out != null) {
-					out.close();// 
+					out.close();//
 					out = null;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void discardOldList() {
+		Date d1 = null;
+		Date d2 = null;
+		try {
+			SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+			ArrayList<Integer> tradeNums = new ArrayList<Integer>();
+			for (TradeList trade : tradeList) {
+				d1 = f.parse("2022-02-23");
+				d2 = f.parse(trade.getTradeDate());
+				if (d2.before(d1)) {
+					tradeNums.add(trade.getTradeNum());
+					System.out.println(trade.getTradeNum() + "거래 삭제");
+				}
+			}
+			for (Integer num : tradeNums) {
+				tradeDelete(num);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void importBuyer() {
+		BufferedReader in = null;
+		
+		try {
+			in = new BufferedReader(new FileReader("buyer.txt"));
+
+			// read한 데이터를 대입받는 변수, 데이터가 있으면 String객체, 없을 경우 null
+			String readData = null;
+			int i = 0;
+
+			while ((readData = in.readLine()) != null) {
+				if (i == 0) {
+					continue; // 조건식이 true일 경우 해당 로직 생략 후에 다시 i++영역으로 실행 유지 
+				}
+				String [] row = readData.split(", ");
+				System.out.println(row[0]);
+				i++;
+			}
+
+		} catch (FileNotFoundException e) { // file이 없을 경우 실행
+			e.printStackTrace();
+			// file이 없을 경우에만 실행되는 예외처리 화면 지정
+
+		} catch (IOException e) { // 데이터 read시에 예외 발생시 실행
+			e.printStackTrace();
+			// 데이터 read시에 예외 처리 화면 지정
+		} finally {
+			try {
+				if (in != null) {
+					in.close();// 예외발생 여부와 무관하게 실행되는 블록
+					in = null;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 //	public void wqfew() {
