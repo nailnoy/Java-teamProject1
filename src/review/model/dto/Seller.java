@@ -54,9 +54,9 @@ public class Seller {
 		builder.append("판매자 아이디 : ");
 		builder.append(id);
 		builder.append(", 판매자 비밀번호 : ");
-		builder.append(name);
+		builder.append(password);
 		builder.append(", 판매자 이름 : ");
-		builder.append(contactInformation);
+		builder.append(name);
 		builder.append(", 판매자 연락처 : ");
 		builder.append(contactInformation);
 		return builder.toString();

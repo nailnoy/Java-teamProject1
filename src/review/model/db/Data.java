@@ -2,11 +2,16 @@
 
 package review.model.db;
 
+import java.util.Hashtable;
+
+
 import review.model.dto.Buyer;
 import review.model.dto.Manager;
 import review.model.dto.Seller;
 import review.model.dto.TradeList;
 import review.model.dto.Product;
+
+
 
 public class Data {
 	private static Data instance = new Data();	//SingleTon 패턴 이점 : 메모리 효율, 데이 공유에 쉬
@@ -39,6 +44,19 @@ public class Data {
 	private static TradeList tradeSangchu = new TradeList(9012, buyer3, sangchu, "2020-04-05");
 
 	
+	
+	private static Hashtable<String, Buyer> buyersMap = new Hashtable<String, Buyer>();
+		
+	static {
+		buyersMap.put("dvcev", buyer1);
+		buyersMap.put("fefef", buyer2);
+		buyersMap.put("eecef", buyer3);
+		buyersMap.put("rfeff", buyer4);
+	}
+	
+
+	
+	
 	private Data() {}
 	public static Data getInstance() {
 		return instance;
@@ -61,10 +79,12 @@ public class Data {
 	public  Product getBag() {
 		return bag;
 	}
-	public static Product getDress() {
+	public  Product getDress() {
 		return dress;
 	}
-	
+	public Hashtable<String, Buyer> getBuyersMap() {
+		return buyersMap;
+	}
 
 	
 }

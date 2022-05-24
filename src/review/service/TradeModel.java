@@ -207,17 +207,24 @@ public class TradeModel {
 		
 		try {
 			in = new BufferedReader(new FileReader("buyer.txt"));
-
+			Buyer buyer = new Buyer();
 			// read한 데이터를 대입받는 변수, 데이터가 있으면 String객체, 없을 경우 null
 			String readData = null;
 			int i = 0;
+			String [] row = null;
 
 			while ((readData = in.readLine()) != null) {
-				if (i == 0) {
+				if (i == 1) {
 					continue; // 조건식이 true일 경우 해당 로직 생략 후에 다시 i++영역으로 실행 유지 
 				}
-				String [] row = readData.split(", ");
-				
+				row = readData.split(", ");
+				buyer.setId(row[0]);
+				buyer.setPassword(Integer.parseInt(row[1]));
+				buyer.setName(row[2]);
+				buyer.setContactInformation(row[3]);
+				db.getBuyersMap().put(row[0], buyer);
+				System.out.println(db.getBuyersMap()); //구매자  아이디 : dfdv, 구매자 이름 : 577777, 구매자 비밀번호 : 0, 구매자 연락처 : 010-555-7777
+				buyer = null;
 				i++;
 			}
 
