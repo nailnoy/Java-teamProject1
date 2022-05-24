@@ -217,7 +217,7 @@ public class TradeModel {
 					continue; // 조건식이 true일 경우 해당 로직 생략 후에 다시 i++영역으로 실행 유지 
 				}
 				String [] row = readData.split(", ");
-				System.out.println(row[0]);
+				
 				i++;
 			}
 
