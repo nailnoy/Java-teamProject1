@@ -157,7 +157,7 @@ public class TradeModel {
 	public void txtGenerate() {
 		BufferedWriter out = null;
 		try {
-			out = new BufferedWriter(new FileWriter("playdata.txt"));
+			out = new BufferedWriter(new FileWriter("tradelist.txt"));
 			int index = 0;
 
 			for (TradeList trade : tradeList) {
